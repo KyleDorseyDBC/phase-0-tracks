@@ -16,9 +16,14 @@ def encrypted_consonants(consonant)
 	encrypted_letter
 end	
 
-def name_converter(name)
+def name_swapper(name)
 	name_array = name.downcase.split(' ')
 	swapped_name = name_array[1] + " " + name_array[0]
+	swapped_name
+end
+
+def name_converter(name)
+	swapped_name = name_swapper(name)
 	vowels = "aeioua"
 	consonants = "bcdfghjklmnpqrstvxyzb"
 	result = ""
