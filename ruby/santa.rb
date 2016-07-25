@@ -9,7 +9,7 @@ class Santa
 		@gender = gender
 		@ethnicity = ethnicity
 		@reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
-		@age = 0
+		@age = rand(1..100)
 	end
 
 	def speak
@@ -35,17 +35,48 @@ end
 # christmas.speak
 # christmas.eat_milk_and_cookies("chocolate chip")
 
-# santas = []
-# gender = ["female", "male", "bi-gender", "other"]
-# ethnicity = ["black", "Latino", "Japanese", "white"]
-# gender.length.times do |index|
-# 	santas << Santa.new(gender[index], ethnicity[index])
-# end
-# p santas
 
-christmas = Santa.new("male", "black")
-christmas.speak
-christmas.get_mad_at("Dasher")
-p christmas.gender = "female"
-p christmas.age
-p christmas.ethnicity
+# christmas = Santa.new("male", "black")
+# christmas.speak
+# christmas.get_mad_at("Dasher")
+# p christmas.gender = "female"
+# p christmas.age
+# p christmas.ethnicity
+
+
+santas = []
+gender = ["female", "male", "bi-gender", "other"]
+ethnicity = ["black", "Latino", "Japanese", "white"]
+cookie_types = ["chocolate", "raisin", "fudge"]
+who_did_it = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
+101.times do |index|
+	new_santa = Santa.new(gender.sample, ethnicity.sample)
+	new_santa.speak
+	new_santa.eat_milk_and_cookies(cookie_types.sample)
+	puts new_santa.celebrate_birthday
+	puts new_santa.get_mad_at(who_did_it.sample)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
