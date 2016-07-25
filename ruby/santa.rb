@@ -2,6 +2,8 @@
 
 
 class Santa
+	attr_reader :age, :ethnicity
+	attr_accessor :gender
 	def initialize(gender, ethnicity)
 		puts "Initializing Santa instance ..."
 		@gender = gender
@@ -27,9 +29,6 @@ class Santa
 		@reindeer_ranking = @reindeer_ranking.push(reindeer)
 	end
 
-	def gender(gender)
-		@gender = gender
-	end
 end
 
 # christmas = Santa.new
@@ -47,4 +46,6 @@ end
 christmas = Santa.new("male", "black")
 christmas.speak
 christmas.get_mad_at("Dasher")
-christmas.gender("female")
+p christmas.gender = "female"
+p christmas.age
+p christmas.ethnicity
