@@ -1,0 +1,28 @@
+WORD GUESSING GAME
+"hangman" 
+
+Driver code handles inputs and ouputs
+User inputs a word or phrase
+
+
+Limit number of guesses, guessed related to length of the word.
+	use .length to mesure the length of the word, they are allowed the same amount of guesses
+	initialize a guess variable at 0
+	each guess adds to guess var until its = word.length then break program
+
+repeated guesses do not count as a guess
+	create guess array, check agianst it if current guess is in the array before counting as a guess
+	if its in the current guess array reprompt to guess
+	otherwise report incorrect guess
+		current correct guesses on the word
+	otherwise check to see if correct guess
+
+
+If a correct letter is guessed the output should show the progress of correct guesses so far
+	fill in letter in correct index of correct array
+	print out current stats of the word to be guessing
+
+
+message when they win or loose
+	if word in solved print out word and congrats, along with guessed letters
+	else print out better luck next time, with list of guesses
