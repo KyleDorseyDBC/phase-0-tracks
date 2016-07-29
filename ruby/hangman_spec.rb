@@ -4,7 +4,7 @@ describe Hangman do
   let(:word) { Hangman.new("sandwich")}
 
   it "returns the correct number of guesses" do
-    expect(word.number_of_guesses).to eq 8
+    expect(word.remaining_guesses).to eq 8
   end
 
   it "checks if the letter 'a' is in the array" do
@@ -13,7 +13,7 @@ describe Hangman do
 
   it "Check to make sure guesses are not consumed when guessing a the same letter twice" do
     word.check_guess("a")
-    expect(word.check_guess("a")).to eq "you have already guessed this letter, this wont take a guess"
+    expect(word.check_guess("a")).to eq "You have already guessed this letter, this wont take a guess"
   end
 
   it "The letter is guessed incorrectly too many times" do

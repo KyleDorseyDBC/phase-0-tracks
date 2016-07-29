@@ -1,49 +1,35 @@
 # HANGMAN   
 
 class Hangman
-  attr_reader :guess_count
+  attr_reader :remaining_guesses
 
   def initialize(correct_answer)
     @correct_answer = correct_answer.split('')  
     @guess_count = 0
     @guessed_array = []
-    number_of_guesses      #Is this bad practice? Having initialize run other methods? 
-    create_empty_array      #I added them here so I wouldnt have to call them at the beginning of every rspec test
-    printer
-  end
-
-  def number_of_guesses
-    total_guesses = @correct_answer.length
-    @remaining_guesses = total_guesses - @guess_count 
-    @remaining_guesses
-  end
-
-  def used_a_guess
-    @remaining_guesses += -1
-    @remaining_guesses
+    @remaining_guesses = @correct_answer.length      
+    create_empty_array #Would I want to move method create_empty_array to this line, or is there too much going on to stick it in initialize    
+    printer #Is this bad practice? Having initialize run other methods? #I added them here so I wouldnt have to call them at the beginning of every rspec test
   end
 
   def create_empty_array
-    empty_array_length = @correct_answer.length.to_i
-    empty_array_length.times {|blank| @guessed_array << "_"}
-    @guessed_array.join(" ")
+    @correct_answer.length.to_i.times {|blank| (@guessed_array << "_").join(" ")}
   end
 
   def solved_portion(letter)
-    letter_index = @correct_answer.index(letter)
-    @guessed_array.insert(letter_index, letter)
-    @guessed_array.delete_at(letter_index + 1)
+    @guessed_array.insert(@correct_answer.index(letter), letter)
+    @guessed_array.delete_at(@correct_answer.index(letter) + 1)
   end
 
   def check_guess(letter)
     if @guessed_array.include?(letter) == true
-      "you have already guessed this letter, this wont take a guess"
+      "You have already guessed this letter, this wont take a guess"
     elsif @correct_answer.include?(letter) == true
       solved_portion(letter)
-      used_a_guess
+      @remaining_guesses += -1
       printer
     else
-      used_a_guess
+      @remaining_guesses += -1
       printer
     end
   end
@@ -65,16 +51,21 @@ class Hangman
 end
 
 # hangman = Hangman.new("sandwich")
-# hangman.check_guess("s")
-# hangman.check_guess("a")
-# hangman.check_guess("n")
-# hangman.check_guess("z")
-# hangman.check_guess("w")
-# hangman.check_guess("i")
-# hangman.check_guess("p")
-# hangman.check_guess("o")
-# hangman.check_guess("r")
-# hangman.check_guess("q")
+# p hangman.check_guess("f")
+# p hangman.check_guess("p")
+# p hangman.check_guess("z")
+# p hangman.check_guess("d")
+# p hangman.check_guess("w")
+# p hangman.check_guess("i")
+# p hangman.check_guess("c")
+# p hangman.check_guess("h")
+# p hangman.check_guess("r")
+# p hangman.check_guess("q")
+# puts "--------------------------------------------------"
+hangman2 = Hangman.new("nom")
+p hangman2.check_guess("n")
+p hangman2.check_guess("o")
+p hangman2.check_guess("m")
 
 # WORD GUESSING GAME
 # "hangman" 
