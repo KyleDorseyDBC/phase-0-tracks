@@ -1,22 +1,26 @@
 require_relative 'hangman'
 
 describe Hangman do
-  let(:word) { Hangman.new("sandwich")}
+  let(:word) { Hangman.new}
 
   it "returns the correct number of guesses" do
+    word.word_to_guess("sandwich")
     expect(word.remaining_guesses).to eq 8
   end
 
   it "checks if the letter 'a' is in the array" do
+    word.word_to_guess("sandwich")
     expect(word.check_guess("a")).to eq "Your current progress is : _ a _ _ _ _ _ _, You have 7 guesses left!"
   end
 
   it "Check to make sure guesses are not consumed when guessing a the same letter twice" do
+    word.word_to_guess("sandwich")
     word.check_guess("a")
     expect(word.check_guess("a")).to eq "You have already guessed this letter, this wont take a guess"
   end
 
   it "The letter is guessed incorrectly too many times" do
+    word.word_to_guess("sandwich")
     word.check_guess("z")
     word.check_guess("a")
     word.check_guess("m")
@@ -28,6 +32,7 @@ describe Hangman do
   end
 
   it "The word is guessed correctly" do
+    word.word_to_guess("sandwich")
     word.check_guess("s")
     word.check_guess("a")
     word.check_guess("d")

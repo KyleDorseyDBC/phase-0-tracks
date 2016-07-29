@@ -2,18 +2,19 @@
 
 class Hangman
   attr_reader :remaining_guesses
+  attr_accessor :correct_answer
 
-  def initialize(correct_answer)
-    @correct_answer = correct_answer.split('')  
+  def initialize
+    @correct_answer = '' 
     @guess_count = 0
     @guessed_array = []
-    @remaining_guesses = @correct_answer.length      
-    create_empty_array #Would I want to move method create_empty_array to this line, or is there too much going on to stick it in initialize    
-    printer #Is this bad practice? Having initialize run other methods? #I added them here so I wouldnt have to call them at the beginning of every rspec test
+    @remaining_guesses = 0
   end
 
-  def create_empty_array
-    @correct_answer.length.to_i.times {|blank| (@guessed_array << "_").join(" ")}
+  def word_to_guess(word)
+    @correct_answer = word.split('')
+    @remaining_guesses = @correct_answer.length
+    @correct_answer.length.to_i.times {|blank| (@guessed_array << "_").join(" ")}  
   end
 
   def solved_portion(letter)
@@ -50,7 +51,8 @@ class Hangman
   end
 end
 
-# hangman = Hangman.new("sandwich")
+# hangman = Hangman.new
+# hangman.word_to_guess("sandwich")
 # p hangman.check_guess("f")
 # p hangman.check_guess("p")
 # p hangman.check_guess("z")
@@ -62,10 +64,11 @@ end
 # p hangman.check_guess("r")
 # p hangman.check_guess("q")
 # puts "--------------------------------------------------"
-hangman2 = Hangman.new("nom")
-p hangman2.check_guess("n")
-p hangman2.check_guess("o")
-p hangman2.check_guess("m")
+# hangman2 = Hangman.new
+# p hangman2.word_to_guess("nom")
+# p hangman2.check_guess("n")
+# p hangman2.check_guess("o")
+# p hangman2.check_guess("m")
 
 # WORD GUESSING GAME
 # "hangman" 
