@@ -7,16 +7,34 @@ describe Hangman do
     expect(word.number_of_guesses).to eq 8
   end
 
-  it "prints out an empty array" do
-    expect(word.get_items).to eq ["do the dishes", "mow the lawn", "mop"]
+  it "checks if the letter 'a' is in the array" do
+    expect(word.check_guess("a")).to eq "Your current progress is : _ a _ _ _ _ _ _, You have 7 guesses left!"
   end
 
-  it "deletes an item" do
-    word.delete_item("do the dishes")
-    expect(word.get_items).to eq ["mow the lawn"]
+  it "Check to make sure guesses are not consumed when guessing a the same letter twice" do
+    word.check_guess("a")
+    expect(word.check_guess("a")).to eq "you have already guessed this letter, this wont take a guess"
   end
 
-  it "retrieves an item by index" do
-    expect(word.get_item(0)).to eq "do the dishes"
+  it "The letter is guessed incorrectly too many times" do
+    word.check_guess("z")
+    word.check_guess("a")
+    word.check_guess("m")
+    word.check_guess("n")
+    word.check_guess("q")
+    word.check_guess("c")
+    word.check_guess("i")
+    expect(word.check_guess("w")).to eq "Sorry, better luck next time"
+  end
+
+  it "The word is guessed correctly" do
+    word.check_guess("s")
+    word.check_guess("a")
+    word.check_guess("d")
+    word.check_guess("n")
+    word.check_guess("h")
+    word.check_guess("c")
+    word.check_guess("i")
+    expect(word.check_guess("w")).to eq "Congrats you won! The word was Sandwich"
   end
 end
