@@ -6,12 +6,20 @@
   // if item length > longest length  redefine longest string and longest length variables
 // print longest string var when done
 
+array = ["long phrase","longest phrase","longer phrase"]
+secondarray = ["Jim", "Jimbo", "Jimbob"]
 function LongestWord(words){
-  var longest_string = ""
-  var lengthofString = 0
-  for (words.length > lengthofString) {
-    var longest_string = words
-    var lengthofString = words.length
+  var longest_string = "";
+  var lengthofString = 0;
+  for (i = 0; i < words.length; i++) {
+    if (words[i].length > lengthofString){
+    longest_string = words[i];
+    lengthofString = words[i].length;
+    }
   }
-console.log("Here is the output")
+console.log("The longest string is " + longest_string);
 }
+
+
+LongestWord(array)
+LongestWord(secondarray)
