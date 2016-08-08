@@ -1,0 +1,121 @@
+C:\DBC\phase-0-tracks\databases>sqlite3 solo_project.db
+SQLite version 3.8.7.2 2014-11-18 20:57:56
+Enter ".help" for usage hints.
+sqlite> CREATE TABLE classroom (
+   ...> id INTEGER PRIMARY KEY,
+   ...> classroom_name VARCHAR(255)
+   ...> );
+sqlite> .tables
+classroom
+sqlite> CREATE TABLE kids (
+   ...> id INTEGER PRIMARY KEY,
+   ...> name VARCHAR(255),
+   ...> age INT,
+   ...> brought_lunch BOOLEAN,
+   ...> classroom_id INT,
+   ...> FOREIGN KEY (classroom_id) REFERENCES classroom(id)
+   ...> );
+sqlite> .tables
+classroom  kids
+sqlite> insert into classroom (classroom_name) values ("Ms. Young");
+sqlite> insert into classroom (classroom_name) values ("Mr. Long");
+sqlite> insert into classroom (classroom_name) values ("Mrs. Hodnik");
+
+-----------------------------------------
+## BELOW IS QUESTION ONE FROM RELEASE 2
+-------------------------------------------
+
+sqlite> select * from classroom
+   ...> ;
+1|Ms. Young
+2|Mr. Long
+3|Mrs. Hodnik
+sqlite> INSERT INTO classroom (name, age, brought_lunch, classroom_id) VALUES ("Jake", 7, "true", 2);
+Error: table classroom has no column named name
+sqlite> INSERT INTO kids (name, age, brought_lunch, classroom_id) VALUES ("Jake", 7, "true", 2);
+sqlite> INSERT INTO kids (name, age, brought_lunch, classroom_id) VALUES ("Tyler", 12, "false", 3);
+sqlite> INSERT INTO kids (name, age, brought_lunch, classroom_id) VALUES ("Jonathan", 8, "true", 2);
+sqlite> INSERT INTO kids (name, age, brought_lunch, classroom_id) VALUES ("Fred", 13, "false", 3);
+sqlite> INSERT INTO kids (name, age, brought_lunch, classroom_id) VALUES ("Bob", 5, "true", 1);
+sqlite> INSERT INTO kids (name, age, brought_lunch, classroom_id) VALUES ("Drew", 4, "true", 1);
+sqlite> select * from kids
+   ...> ;
+1|Jake|7|true|2
+2|Tyler|12|false|3
+3|Jonathan|8|true|2
+4|Fred|13|false|3
+5|Bob|5|true|1
+6|Drew|4|true|1
+
+-------------------------------
+## BELOW IS Q2 FOR RELEASE 2
+-------------------------------
+sqlite> UPDATE kids SET brought_lunch="true" where name="Fred";
+sqlite> Select * FROM kids
+   ...> ;
+1|Jake|7|true|2
+2|Tyler|12|false|3
+3|Jonathan|8|true|2
+4|Fred|13|true|3
+5|Bob|5|true|1
+6|Drew|4|true|1
+
+--------------------------------
+## BELOW IS Q3 FOR RELEASE 2
+--------------------------------
+sqlite> SELECT * FROM kids JOIN classroom on kids.classroom_id = classroom.id;
+1|Jake|7|true|2|2|Mr. Long
+2|Tyler|12|false|3|3|Mrs. Hodnik
+3|Jonathan|8|true|2|2|Mr. Long
+4|Fred|13|true|3|3|Mrs. Hodnik
+5|Bob|5|true|1|1|Ms. Young
+6|Drew|4|true|1|1|Ms. Young
+sqlite>
+
+----------------------------------
+## BELOW IS Q4 FOR RELEASE 2
+----------------------------------
+sqlite> SELECT kids.name, classroom.classroom_name from kids join classroom on kids.classroom_id = classroom.id;
+Jake|Mr. Long
+Tyler|Mrs. Hodnik
+Jonathan|Mr. Long
+Fred|Mrs. Hodnik
+Bob|Ms. Young
+Drew|Ms. Young
+
+----------------------------------
+## BELOW IS Q5 FOR RELEASE 2
+----------------------------------
+sqlite>         DELETE FROM kids WHERE age=13;
+sqlite> SELECT * FROM kids JOIN classroom on kids.classroom_id = classroom.id;
+1|Jake|7|true|2|2|Mr. Long
+2|Tyler|12|false|3|3|Mrs. Hodnik
+3|Jonathan|8|true|2|2|Mr. Long
+5|Bob|5|true|1|1|Ms. Young
+6|Drew|4|true|1|1|Ms. Young
+sqlite>
+
+-----------------------------------
+## Below is Release 3
+----------------------------------
+Notes:
+The first time I ran 'left join' it merged the two correctly but there was no missing data to show what left join does.
+So I added sarah whos classroom_id was 4 which was not represented on the classroom table.  
+Although she is not associated with a classroom because I used left join she appears, If I would have used right join she wouldnt have showed up.
+
+
+sqlite> SELECT kids.name, classroom.classroom_name FROM kids LEFT JOIN classroom ON kids.classroom_id=classroom.id ORDER BY kids.name;
+Bob|Ms. Young
+Drew|Ms. Young
+Jake|Mr. Long
+Jonathan|Mr. Long
+Tyler|Mrs. Hodnik
+sqlite> INSERT INTO kids (name, age, brought_lunch, classroom_id) VALUES ("Sarah", 10, "true", 4);
+sqlite> SELECT kids.name, classroom.classroom_name FROM kids LEFT JOIN classroom ON kids.classroom_id=classroom.id ORDER BY kids.name;
+Bob|Ms. Young
+Drew|Ms. Young
+Jake|Mr. Long
+Jonathan|Mr. Long
+Sarah|
+Tyler|Mrs. Hodnik
+sqlite>
