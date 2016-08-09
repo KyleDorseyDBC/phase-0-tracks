@@ -1,0 +1,28 @@
+
+
+sqlite> SELECT * FROM users, business, reviews WHERE user_id=users.id AND business_id=business.id;
+1|Bradford|Pit|1|The Beagle Nightclub|1|5|Great|1|1
+3|Holly|Berry|2|Lotus Yoga|2|4|Okay|2|3
+2|Angela|Jolie|3|Sushi World|3|1|Dont see it!|3|2
+sqlite>
+
+
+sqlite> SELECT users.first_name, users.last_name, business.name, reviews.stars, reviews.comment FROM users, business, reviews WHERE user_id=users.id AND business_id=business.id;
+Bradford|Pit|The Beagle Nightclub|5|Great
+Holly|Berry|Lotus Yoga|4|Okay
+Angela|Jolie|Sushi World|1|Dont see it!
+
+sqlite> SELECT * FROM business, users, reviews WHERE business.name="Lotus Yoga";
+2|Lotus Yoga|1|Bradford|Pit|1|5|Great|1|1
+2|Lotus Yoga|1|Bradford|Pit|2|4|Okay|2|3
+2|Lotus Yoga|1|Bradford|Pit|3|1|Dont see it!|3|2
+2|Lotus Yoga|2|Angela|Jolie|1|5|Great|1|1
+2|Lotus Yoga|2|Angela|Jolie|2|4|Okay|2|3
+2|Lotus Yoga|2|Angela|Jolie|3|1|Dont see it!|3|2
+2|Lotus Yoga|3|Holly|Berry|1|5|Great|1|1
+2|Lotus Yoga|3|Holly|Berry|2|4|Okay|2|3
+2|Lotus Yoga|3|Holly|Berry|3|1|Dont see it!|3|2
+
+sqlite> SELECT * FROM business, users, reviews WHERE business.name="Lotus Yoga" and user_id=users.id AND business_id=business.id;
+2|Lotus Yoga|3|Holly|Berry|2|4|Okay|2|3
+
